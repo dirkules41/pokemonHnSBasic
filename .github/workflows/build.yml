@@ -24,6 +24,11 @@ jobs:
             libpng-dev \
             perl
 
+      - name: Setup agbcc
+        run: |
+          git clone https://github.com/pret/agbcc.git
+          # or download from wherever agbcc should come from
+
       - name: Build
         run: |
           cd agbcc
