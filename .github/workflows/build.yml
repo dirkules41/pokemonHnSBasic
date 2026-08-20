@@ -1,16 +1,16 @@
-name: Build Pokemon Emerald ROM
+name: Build ROM
 
-on: 
-  push: 
+on:
+  push:
     branches: [ main ]
-  pull_request: 
+  pull_request:
     branches: [ main ]
 
-jobs: 
-  build: 
+jobs:
+  build:
     runs-on: ubuntu-latest
-    
-    steps: 
+
+    steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -25,33 +25,23 @@ jobs:
             libpng-dev \
             perl
 
-      - name: Setup agbcc
+      - name: Build (modern)
         run: |
-          git clone https://github.com/pret/agbcc.git
-          # or download from wherever agbcc should come from
-
-      - name: Build
-        run: |
-          cd agbcc
-          make install
-          cd ..
-          export PATH="$(pwd)/agbcc/bin:$PATH"
+          # Build using the system arm toolchain (MODERN=1)
           make -j$(nproc) MODERN=1 CFLAGS="-Wno-error=dangling-else"
 
-      - name: Build ROM (classic)
-        run: make -j$(nproc) MODERN=1 CFLAGS="-Wno-error=dangling-else"
+      - name: List build outputs
+        run: ls -la
 
-      - name: Upload build artifacts
+      - name: Upload ROM artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pokemon-emerald-build
+          name: pokemon-rom
           path: |
             *.gba
-            *.elf
-            *.map
           retention-days: 90
 
       - name: Verify ROM checksum
         run: make compare
-        continue-on-error: true  # Add this line to allow builds to pass despite checksum mismatch
+        continue-on-error: true
