@@ -44,12 +44,12 @@ jobs:
       - name: Upload build artifacts
         if: always()
         uses: actions/upload-artifact@v4
-        with: 
+        with:
           name: pokemon-emerald-build
           path: |
-            pokeemerald.gba
-            pokeemerald.elf
-            pokeemerald.map
+            *.gba
+            *.elf
+            *.map
           retention-days: 90
 
       - name: Verify ROM checksum
