@@ -32,7 +32,7 @@ jobs:
           ./install.sh ../
 
       - name: Build ROM (classic)
-        run: make -j$(nproc) CFLAGS="-Wno-error=dangling-else"
+        run: make -j$(nproc) MODERN=1 CFLAGS="-Wno-error=dangling-else"
 
       - name: Upload build artifacts
         if: always()
