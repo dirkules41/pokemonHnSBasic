@@ -240,11 +240,11 @@ NewBarkTown_Lab_EventScript_ChoseStarter::
     msgbox NewBarkTown_Lab_Text_ChoseStarter, MSGBOX_DEFAULT
 
     ; Set the shiny-starter flag based on which starter was chosen
-    goto_if_eq VAR_STARTER_MON, 0, NewBarkTown_Lab_SetShiny_Chikorita
-    goto_if_eq VAR_STARTER_MON, 1, NewBarkTown_Lab_SetShiny_Cyndaquil
-    goto_if_eq VAR_STARTER_MON, 2, NewBarkTown_Lab_SetShiny_Totodile
-	end
+    call_if_eq VAR_STARTER_MON, 0, NewBarkTown_Lab_SetShiny_Chikorita
+    call_if_eq VAR_STARTER_MON, 1, NewBarkTown_Lab_SetShiny_Cyndaquil
+    call_if_eq VAR_STARTER_MON, 2, NewBarkTown_Lab_SetShiny_Totodile
 
+NewBarkTown_Lab_ChoseStarter_Continue::
     ; Give the starter at level 5, holding LEFTOVERS
     givemon PLAYER_STARTER_SPECIES, 5, ITEM_LEFTOVERS
     setflag FLAG_SYS_POKEMON_GET
@@ -262,15 +262,15 @@ NewBarkTown_Lab_EventScript_ChoseStarter::
 
 NewBarkTown_Lab_SetShiny_Chikorita::
     setflag FLAG_SHINY_STARTER_2
-    goto NewBarkTown_Lab_ChoseStarter_Continue
+    return NewBarkTown_Lab_ChoseStarter_Continue
 
 NewBarkTown_Lab_SetShiny_Cyndaquil::
     setflag FLAG_SHINY_STARTER_1
-    goto NewBarkTown_Lab_ChoseStarter_Continue
+    return NewBarkTown_Lab_ChoseStarter_Continue
 
 NewBarkTown_Lab_SetShiny_Totodile::
     setflag FLAG_SHINY_STARTER_3
-    goto NewBarkTown_Lab_ChoseStarter_Continue
+    return NewBarkTown_Lab_ChoseStarter_Continue
 
 NewBarkTown_Lab_EventScript_NicknameStarter::
 	setvar VAR_0x8004, 0
