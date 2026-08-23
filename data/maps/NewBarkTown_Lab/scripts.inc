@@ -234,7 +234,6 @@ NewBarkTown_Lab_EventScript_DeclinedStarter::
 	end
 
 NewBarkTown_Lab_EventScript_ChoseStarter::
-    callnative EnableStaticRandomizer
     hidemonpic
     removeobject VAR_LAST_TALKED
     msgbox NewBarkTown_Lab_Text_ChoseStarter, MSGBOX_DEFAULT
@@ -242,6 +241,7 @@ NewBarkTown_Lab_EventScript_ChoseStarter::
     call_if_eq VAR_STARTER_MON, 0, NewBarkTown_Lab_SetShiny_Chikorita
     call_if_eq VAR_STARTER_MON, 1, NewBarkTown_Lab_SetShiny_Cyndaquil
     call_if_eq VAR_STARTER_MON, 2, NewBarkTown_Lab_SetShiny_Totodile
+    callnative EnableStaticRandomizer
 
 NewBarkTown_Lab_ChoseStarter_Continue::
     givemon PLAYER_STARTER_SPECIES, 5, ITEM_LEFTOVERS
