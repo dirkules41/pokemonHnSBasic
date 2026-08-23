@@ -244,7 +244,7 @@ NewBarkTown_Lab_EventScript_ChoseStarter::
     callnative EnableStaticRandomizer
 
 NewBarkTown_Lab_ChoseStarter_Continue::
-    givemon PLAYER_STARTER_SPECIES, 5, ITEM_LEFTOVERS
+    givemon PLAYER_STARTER_SPECIES, 5, ITEM_WHITE_HERB
     setflag FLAG_SYS_POKEMON_GET
     playfanfare MUS_OBTAIN_ITEM
     bufferspeciesname STR_VAR_1, PLAYER_STARTER_SPECIES
@@ -429,7 +429,7 @@ NewBarkTown_Lab_EventScript_ElmMasterBall::
 	lock
 	faceplayer
 	msgbox NewBarkTown_Lab_Text_ElmGiveMasterBall1, MSGBOX_DEFAULT
-	giveitem ITEM_MASTER_BALL
+	giveitem ITEM_SHELL_BELL
 	msgbox NewBarkTown_Lab_Text_ElmGiveMasterBall2, MSGBOX_DEFAULT
 	closemessage
 	delay 20
