@@ -262,15 +262,15 @@ NewBarkTown_Lab_ChoseStarter_Continue::
 
 NewBarkTown_Lab_SetShiny_Chikorita::
     setflag FLAG_SHINY_STARTER_2
-    return NewBarkTown_Lab_ChoseStarter_Continue
+    goto NewBarkTown_Lab_ChoseStarter_Continue
 
 NewBarkTown_Lab_SetShiny_Cyndaquil::
     setflag FLAG_SHINY_STARTER_1
-    return NewBarkTown_Lab_ChoseStarter_Continue
+    goto NewBarkTown_Lab_ChoseStarter_Continue
 
 NewBarkTown_Lab_SetShiny_Totodile::
     setflag FLAG_SHINY_STARTER_3
-    return NewBarkTown_Lab_ChoseStarter_Continue
+    goto NewBarkTown_Lab_ChoseStarter_Continue
 
 NewBarkTown_Lab_EventScript_NicknameStarter::
 	setvar VAR_0x8004, 0
