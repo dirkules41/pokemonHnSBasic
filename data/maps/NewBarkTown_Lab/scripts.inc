@@ -241,10 +241,9 @@ NewBarkTown_Lab_EventScript_ChoseStarter::
     call_if_eq VAR_STARTER_MON, 0, NewBarkTown_Lab_SetShiny_Chikorita
     call_if_eq VAR_STARTER_MON, 1, NewBarkTown_Lab_SetShiny_Cyndaquil
     call_if_eq VAR_STARTER_MON, 2, NewBarkTown_Lab_SetShiny_Totodile
-    callnative EnableStaticRandomizer
 
 NewBarkTown_Lab_ChoseStarter_Continue::
-    givemon PLAYER_STARTER_SPECIES, 5, ITEM_WHITE_HERB
+    givemon PLAYER_STARTER_SPECIES, 5, ITEM_BRIGHT_POWDER
     setflag FLAG_SYS_POKEMON_GET
     playfanfare MUS_OBTAIN_ITEM
     bufferspeciesname STR_VAR_1, PLAYER_STARTER_SPECIES
