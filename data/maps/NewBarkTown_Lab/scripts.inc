@@ -234,23 +234,42 @@ NewBarkTown_Lab_EventScript_DeclinedStarter::
 	end
 
 NewBarkTown_Lab_EventScript_ChoseStarter::
-	callnative EnableStaticRandomizer
-	hidemonpic
-	removeobject VAR_LAST_TALKED
-	msgbox NewBarkTown_Lab_Text_ChoseStarter, MSGBOX_DEFAULT
-	givemon PLAYER_STARTER_SPECIES, 5
-	setflag FLAG_SYS_POKEMON_GET
-	playfanfare MUS_OBTAIN_ITEM
-	bufferspeciesname STR_VAR_1, PLAYER_STARTER_SPECIES
-	message NewBarkTown_Lab_Text_ReceivedStarter
-	waitfanfare
-	specialvar VAR_RESULT, IsNuzlockeNicknamingActive
-	goto_if_eq VAR_RESULT, TRUE, NewBarkTown_Lab_EventScript_ChoseStarter_NicknameStarter_Nuzlocke
-	msgbox NewBarkTown_Lab_Text_Nickname, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, NewBarkTown_Lab_EventScript_NicknameStarter
-	callnative UpdateFollowingPokemon
-	release
-	end
+    callnative EnableStaticRandomizer
+    hidemonpic
+    removeobject VAR_LAST_TALKED
+    msgbox NewBarkTown_Lab_Text_ChoseStarter, MSGBOX_DEFAULT
+
+    ; Set the shiny-starter flag based on which starter was chosen
+    goto_if_eq VAR_STARTER_MON, 0, NewBarkTown_Lab_SetShiny_Chikorita
+    goto_if_eq VAR_STARTER_MON, 1, NewBarkTown_Lab_SetShiny_Cyndaquil
+    goto_if_eq VAR_STARTER_MON, 2, NewBarkTown_Lab_SetShiny_Totodile
+
+    ; Give the starter at level 5, holding LEFTOVERS
+    givemon PLAYER_STARTER_SPECIES, 5, ITEM_LEFTOVERS
+    setflag FLAG_SYS_POKEMON_GET
+    playfanfare MUS_OBTAIN_ITEM
+    bufferspeciesname STR_VAR_1, PLAYER_STARTER_SPECIES
+    message NewBarkTown_Lab_Text_ReceivedStarter
+    waitfanfare
+    specialvar VAR_RESULT, IsNuzlockeNicknamingActive
+    goto_if_eq VAR_RESULT, TRUE, NewBarkTown_Lab_EventScript_ChoseStarter_NicknameStarter_Nuzlocke
+    msgbox NewBarkTown_Lab_Text_Nickname, MSGBOX_YESNO
+    goto_if_eq VAR_RESULT, YES, NewBarkTown_Lab_EventScript_NicknameStarter
+    callnative UpdateFollowingPokemon
+    release
+    end
+
+NewBarkTown_Lab_SetShiny_Chikorita::
+    setflag FLAG_SHINY_STARTER_2
+    goto NewBarkTown_Lab_ChoseStarter_Continue
+
+NewBarkTown_Lab_SetShiny_Cyndaquil::
+    setflag FLAG_SHINY_STARTER_1
+    goto NewBarkTown_Lab_ChoseStarter_Continue
+
+NewBarkTown_Lab_SetShiny_Totodile::
+    setflag FLAG_SHINY_STARTER_3
+    goto NewBarkTown_Lab_ChoseStarter_Continue
 
 NewBarkTown_Lab_EventScript_NicknameStarter::
 	setvar VAR_0x8004, 0
