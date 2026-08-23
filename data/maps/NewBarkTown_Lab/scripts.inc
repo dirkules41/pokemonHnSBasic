@@ -321,7 +321,7 @@ NewBarkTown_Lab_EventScript_TriggerAideGivePotion::
 	turnobject OBJ_EVENT_ID_PLAYER, DIR_WEST
 	msgbox NewBarkTown_Lab_Text_AideGivePotion, MSGBOX_DEFAULT
 	closemessage
-	giveitem ITEM_POTION
+	giveitem ITEM_REPEL, 999
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 	setflag FLAG_RECEIVED_FIRST_POTION
 	setvar VAR_NEWBARKTOWN_LABSTATE, 3
@@ -462,7 +462,7 @@ NewBarkTown_Lab_EventScript_TriggerAideGiveBalls::
 	turnobject OBJ_EVENT_ID_PLAYER, DIR_WEST
 	msgbox NewBarkTown_Lab_Text_AideGiveBalls, MSGBOX_DEFAULT
 	closemessage
-	giveitem ITEM_POKE_BALL, 5
+	giveitem ITEM_MASTER_BALL, 999
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 	setflag FLAG_RECEIVED_FIRST_BALLS
 	setvar VAR_NEWBARKTOWN_LABSTATE, 6
