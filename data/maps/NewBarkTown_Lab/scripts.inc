@@ -243,6 +243,7 @@ NewBarkTown_Lab_EventScript_ChoseStarter::
     goto_if_eq VAR_STARTER_MON, 0, NewBarkTown_Lab_SetShiny_Chikorita
     goto_if_eq VAR_STARTER_MON, 1, NewBarkTown_Lab_SetShiny_Cyndaquil
     goto_if_eq VAR_STARTER_MON, 2, NewBarkTown_Lab_SetShiny_Totodile
+	end
 
     ; Give the starter at level 5, holding LEFTOVERS
     givemon PLAYER_STARTER_SPECIES, 5, ITEM_LEFTOVERS
