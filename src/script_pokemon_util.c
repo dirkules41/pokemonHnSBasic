@@ -70,41 +70,36 @@ u8 ScriptGiveMon(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 u
     u8 heldItem[2];
     struct Pokemon mon;
 
-    // Heart&Soul: Totodile starter is always shiny
-    if (species == SPECIES_TOTODILE && FlagGet(FLAG_SYS_POKEMON_GET) == FALSE)
-    {
-        u32 otId = gSaveBlock2Ptr->playerTrainerId[0]
-                 | (gSaveBlock2Ptr->playerTrainerId[1] << 8)
-                 | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
-                 | (gSaveBlock2Ptr->playerTrainerId[3] << 24);
-
-        u32 shinyPersonality = GenerateShinyPersonalityForOtId(otId);
-
-        CreateMon(&mon, species, level, USE_RANDOM_IVS, TRUE, shinyPersonality, OT_ID_PLAYER_ID, 0);
-    }
-    else if (FlagGet(FLAG_SHINY_STARTER_1)) // Torchic
-    {
-        FlagSet(FLAG_FORCE_SHINY);
-        CreateMon(&mon, species, level, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0);
-        FlagClear(FLAG_FORCE_SHINY);
-        FlagClear(FLAG_SHINY_STARTER_1);
-    }
-    else if (FlagGet(FLAG_SHINY_STARTER_2)) // Treecko
-    {
-        FlagSet(FLAG_FORCE_SHINY);
-        CreateMon(&mon, species, level, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0);
-        FlagClear(FLAG_FORCE_SHINY);
-        FlagClear(FLAG_SHINY_STARTER_2);
-    }
-    else if (FlagGet(FLAG_SHINY_STARTER_3)) // Mudkip
-    {
-        FlagSet(FLAG_FORCE_SHINY);
-        CreateMon(&mon, species, level, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0);
-        FlagClear(FLAG_FORCE_SHINY);
-        FlagClear(FLAG_SHINY_STARTER_3);
-    }
+    // Starter flags are numbers because Random starters also work!
+    // The flag FORCE_SHINY is immediately cleared so it can't affect the rest of the game.
+    // Starter flags are not used anymore after that, and it's immediately cleared as well.
+    if (FlagGet(FLAG_SHINY_STARTER_1)) //Torchic
+        {
+            FlagSet(FLAG_FORCE_SHINY);
+            CreateMon(&mon, species, level, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0);
+            FlagClear(FLAG_FORCE_SHINY);
+            FlagClear(FLAG_SHINY_STARTER_1);
+        }
+    else if (FlagGet(FLAG_SHINY_STARTER_2)) //Treecko
+        {
+            FlagSet(FLAG_FORCE_SHINY);
+            CreateMon(&mon, species, level, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0);
+            FlagClear(FLAG_FORCE_SHINY);
+            FlagClear(FLAG_SHINY_STARTER_2);
+        }
+    else if (species == SPECIES_TOTODILE)
+        {
+            FlagSet(FLAG_FORCE_SHINY);
+            CreateMon(&mon, species, level, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0);
+            FlagClear(FLAG_FORCE_SHINY);
+            FlagClear(FLAG_SHINY_STARTER_3);
+        }
     else if ((!FlagGet(FLAG_SHINY_STARTER_3) || !FlagGet(FLAG_SHINY_STARTER_2) || !FlagGet(FLAG_SHINY_STARTER_1)) 
-             && !FlagGet(FLAG_HIDE_SILVER_NEWBARKTOWN))
+            && !FlagGet(FLAG_HIDE_SILVER_NEWBARKTOWN))
+    // This is here because even if the starter doesn't pass the previous checks (so, it's not shiny) there's the 1/8192 (or 1/4096, 1/2048, 1/1024, 1/512, depending on 
+    // the player's choice) chance that it could become shiny anyway, as the preview is not connected to the personality that the game creates.
+    // To prevent it, if the SHINY_STARTER_X flag hasn't been set, and "Silver is still looking at Elm's lab" flag hasn't been also set, it just blocks the starter from becoming
+    // shiny. The flag NO_SHINY is immediately cleared to prevent other POKéMON from becoming not shiny.
     {
         FlagSet(FLAG_NO_SHINY);
         CreateMon(&mon, species, level, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0);
