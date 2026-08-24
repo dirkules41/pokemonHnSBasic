@@ -87,7 +87,7 @@ u8 ScriptGiveMon(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 u
             FlagClear(FLAG_FORCE_SHINY);
             FlagClear(FLAG_SHINY_STARTER_2);
         }
-    else if (species == SPECIES_TOTODILE)
+    else if (FlagGet(FLAG_SHINY_STARTER_3)) //Mudkip
         {
             FlagSet(FLAG_FORCE_SHINY);
             CreateMon(&mon, species, level, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0);
