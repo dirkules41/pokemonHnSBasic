@@ -779,7 +779,7 @@ static u8 CreatePokemonFrontSpriteTotodile(u16 species, u8 x, u8 y)
         FlagSet(FLAG_SHINY_STARTER_3);
         spriteId = CreateMonPicSprite_Affine(species, TRUE, 1, MON_PIC_AFFINE_FRONT, x, y, 14, TAG_NONE);
     }
-    else if ((isShinyTotodile < 128) && (gSaveBlock1Ptr->tx_Features_ShinyChance == 4)) // 1/512
+    else if ((isShinyTotodile < 8192) && (gSaveBlock1Ptr->tx_Features_ShinyChance == 4)) // 1/512
     {
         FlagSet(FLAG_SHINY_STARTER_3);
         spriteId = CreateMonPicSprite_Affine(species, TRUE, 1, MON_PIC_AFFINE_FRONT, x, y, 14, TAG_NONE);
